@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Portfolio</title>
+  <style>
+    /* CSS Variables for consistent theming */
+     :root {
+      --color-bg: #f43434d6;
+      --color-text: #374151;
+      --color-text-muted: #6b7280;
+      --color-primary: #5645f3fb; /* Primary color */
+      --color-secondary: #64f139; /* Secondary color */
+      --color-accent: #f9c74f; /* Accent color */
+      --color-primary-hover: #000000;
+      --color-shadow: rgba(232, 251, 109, 0.1);
+      --radius: 0.75rem;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+        Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --max-width: 1200px;
+    }
+    
+    /* Reset and base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      font-size: 18px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    img {
+      max-width: 100%;
+      display: block;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 8px var(--color-shadow);
+    }
+    
+    a {
+      color: var(--color-primary);
+      text-decoration: none;
+      transition: color var(--transition), transform var(--transition);
+    }
+    a:hover,
+    a:focus {
+      color: var(--color-secondary);
+      transform: scale(1.05);
+      outline: none;
+    }
+    
+    /* Container */
+    .container {
+      width: 90%;
+      max-width: var(--max-width);
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      background: var(--color-bg);
+      box-shadow: 0 2px 8px var(--color-shadow);
+      z-index: 1000;
+      padding: 1rem 0;
+      backdrop-filter: saturate(180%) blur(10px);
+      -webkit-backdrop-filter: saturate(180%) blur(10px);
+    }
+    
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+    
+    .logo {
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--color-primary);
+      user-select: none;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+    .nav-links a {
+      font-weight: 600;
+      font-size: 1rem;
+      position: relative;
+      padding-bottom: 3px;
+      transition: color var(--transition);
+    }
+    .nav-links a::after {
+      content: '';
+      display: block;
+      width: 0%;
+      height: 2px;
+      background-color: var(--color-secondary);
+      transition: width var(--transition);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      border-radius: 2px;
+    }
+    .nav-links a:hover::after,
+    .nav-links a:focus::after {
+      width: 100%;
+    }
+    
+    /* Hero */
+    .hero {
+      padding: 6rem 0 4rem;
+      text-align: center;
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin: 0 0 1rem;
+      color: var(--color-primary);
+      line-height: 1.1;
+    }
+    .hero p {
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--color-text-muted);
+      margin-bottom: 2.5rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .btn-primary {
+      background-color: var(--color-primary);
+      color: #2471c9d3;
+      font-weight: 700;
+      font-size: 1.125rem;
+      padding: 0.75rem 2rem;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      transition: background-color var(--transition), transform 0.2s ease;
+      box-shadow: 0 4px 12px rgba(17, 24, 39, 0.3);
+      user-select: none;
+      display: inline-block;
+      text-decoration: none;
+    }
+    .btn-primary:hover,
+    .btn-primary:focus {
+      background-color: var(--color-secondary);
+      transform: scale(1.05);
+      outline: none;
+    }
+    
+    /* Sections */
+    section {
+      padding: 4rem 0 6rem;
+    }
+    section h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #cca01ad6 var(--color-primary);
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    
+    /* About */
+    #about p {
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      color:rgb(248, 11, 149) #ff6b6b var(--color-text-muted);
+      font-weight: 400;
+      line-height: 1.7;
+      font-size: 1.125rem;
+    }
+    
+    /* Projects */
+    #projects .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    .project-card {
+      background: #f3d58f;
+      border-radius: var(--radius);
+      box-shadow: 0 2px 10px var(--color-shadow);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: default;
+    }
+    .project-card:hover,
+    .project-card:focus-within {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 24px rgba(242, 11, 11, 0.12);
+      outline: none;
+    }
+    .project-card h3 {
+      margin-top: 0;
+      margin-bottom: 0.75rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      font-size: 1.25rem;
+    }
+    .project-card p {
+      flex-grow: 1;
+      color: var(--color-text-muted);
+      font-size: 1rem;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+    .project-card a {
+      font-weight: 600;
+      color: var(--color-primary);
+      user-select: none;
+    }
+    .project-card a:hover,
+    .project-card a:focus {
+      text-decoration: underline;
+      outline: none;
+    }
+    
+    /* Skills */
+    #skills {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1rem;
+      text-align: center;
+    }
+    .skill-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem 2rem;
+      font-weight: 600;
+      color: #ff6b6b var(--color-text-muted);
+      font-size: 1.125rem;
+    }
+    .skill-list span {
+      background: #f3f4f6;
+      padding: 0.6rem 1.25rem;
+      border-radius: var(--radius);
+      box-shadow: 0 2px 6px var(--color-shadow);
+      user-select: none;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+    .skill-list span:hover {
+      background-color: var(--color-accent);
+      color: #fff;
+      transform: scale(1.05);
+      cursor: default;
+    }
+    
+    /* Contact */
+    #contact {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    #contact p {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: var(--color-text-muted);
+      font-weight: 400;
+      font-size: 1rem;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    label {
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-bottom: 0.4rem;
+      user-select: none;
+    }
+    input, textarea {
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius);
+      border: 1.5px solid #d1d5db;
+      resize: vertical;
+      transition: border-color var(--transition);
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 5px var(--color-primary);
+    }
+    textarea {
+      min-height: 100px;
+    }
+    button[type="submit"] {
+      background-color: var(--color-primary);
+      border: none;
+      color: white;
+      font-weight: 700;
+      padding: 0.85rem 1.5rem;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background-color var(--transition), transform 0.2s ease;
+      user-select: none;
+    }
+    button[type="submit"]:hover,
+    button[type="submit"]:focus {
+      background-color: var(--color-secondary);
+      transform: scale(1.05);
+      outline: none;
+    }
+    
+    /* Responsive */
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 2.25rem;
+      }
+    
+      .nav-links {
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="container" aria-label="Primary navigation">
+      <div class="logo" tabindex="0">MyPortfolio</div>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <h1 id="hero-title"> Hi, I'm Keerthana Anem 👋</h1>
+      <p>I'm a passionate my job.</p>
+      <a href="#contact" class="btn-primary" role="button">Get in Touch</a>
+    </section>
+
+    <section id="about" aria-labelledby="about-title" tabindex="-1">
+      <h2 id="about-title">About Me</h2>
+      <p>
+        I'm a Student in narayana engineering college currently passuring finally year.  
+      </p>
+    </section>
+    <section id="projects" aria-labelledby="projects-title" tabindex="-1">
+      <h2 id="projects-title">Projects</h2>
+      <div class="project-grid">
+        <article class="project-card" tabindex="0" aria-label="Project: Portfolio Website">
+          <h3>Portfolio Website</h3>
+          <p>A responsive, modern portfolio website to showcase skills, projects, and contact information.</p>
+          <a href="#" target="_blank" rel="noopener noreferrer">View Project</a>
+        </article>
+         
+         
+        <article class="project-card" tabindex="0" aria-label="Project: Chat Application">
+          <h3>Chatbot Application</h3>
+          <p>A real-time chat app built in telegram with API key support and user authentication.</p>
+          <a href="#" target="_blank" rel="noopener noreferrer">View Project</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="skills" aria-labelledby="skills-title" tabindex="-1">
+      <h2 id="skills-title">Skills</h2>
+      <div class="skill-list" role="list" aria-label="List of skills">
+        <span role="listitem">JavaScript</span>
+        <span role="listitem">React</span>
+        <span role="listitem">Node.js</span>
+        <span role="listitem">CSS3</span>
+        <span role="listitem">HTML5</span>
+        <span role="listitem">TypeScript</span>
+        <span role="listitem">Git</span>
+      </div>
+    </section>
+
+    <section id="contact" aria-labelledby="contact-title" tabindex="-1">
+      <h2 id="contact-title">Contact Me</h2>
+      <p>If you would like to work with me or just say hello, fill out the form below or send me an email at <a href="anemkeerthana@gmail.com">anemkeerthana@gmail.com</a>.</p>
+      <form action="anemkeerthana@gmail.com" method="POST" enctype="text/plain" aria-label="Contact form">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="Name" required placeholder="Your name" />
+        
+        <label for="email">Email</label>
+        <input type="email" id="email" name="Email" required placeholder="your.email@example.com" />
+        
+        <label for="message">Message</label>
+        <textarea id="message" name="Message" required placeholder="Write your message here"></textarea>
+        
+        <button type="submit">Send</button>
+      </form>
+	  
+    </section>
+  </main>
+</body>
+</html>
+
